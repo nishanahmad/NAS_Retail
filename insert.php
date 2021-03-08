@@ -10,8 +10,8 @@ use \Phppot\Order;
 session_start();
 if (! empty($_SESSION["userId"])) 
 {
-    require_once __DIR__ . './class/Member.php';
-	require_once __DIR__ . './class/Order.php';
+    require 'class/Member.php';
+	require 'class/Order.php';
 
 	$order = new Order();	
 	$member = new Member();	
@@ -33,6 +33,6 @@ if (! empty($_SESSION["userId"]))
 	$order->insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$remarks,$godown,$entered_by,$entered_on);
 	
 	if($order > 0)	
-		header("Location: ./index.php?success");
+		header("Location: index.php?success");
 }
 ?>

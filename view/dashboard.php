@@ -4,10 +4,11 @@ namespace Phppot;
 use \Phppot\Member;
 use \Phppot\Order;
 
+session_start();
 if (! empty($_SESSION["userId"]))
 {
-    require_once __DIR__ . './../class/Member.php';
-	require_once __DIR__ . './../class/Order.php';
+    require '../class/Member.php';
+	require '../class/Order.php';
     
 	$member = new Member();
     $memberResult = $member->getMemberById($_SESSION["userId"]);
@@ -26,6 +27,8 @@ if (! empty($_SESSION["userId"]))
 <html>
 <head>
 <title>Order List</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous"/>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
@@ -61,7 +64,7 @@ if (! empty($_SESSION["userId"]))
         <div class="dashboard">
 			<div id="snackbar"><i class="fa fa-bolt"></i>&nbsp;&nbsp;Order sent successfully !!!</div>
             <div class="member-dashboard"><a href="#" class="btn btn-sm" role="button" style="background-color:#54698D;color:white;float:right;margin-right:3%;" data-toggle="modal" data-target="#saleModal"><i class="fa fa-bolt"></i> New Sale</a><br>
-                Click to <a href="./logout.php" class="logout-button">Logout</a>
+                Click to <a href="../logout.php" class="logout-button">Logout</a>
             </div>
         </div>
     </div>
@@ -78,17 +81,20 @@ if (! empty($_SESSION["userId"]))
 			</tr>	
 		</thead>
 		<tbody>	<?php
-			foreach($orderList as $order) 
-			{																																				?>	
-				<tr data-id="<?php echo $order['sales_id'];?>" data-params="<?php echo explode('?',$_SERVER['REQUEST_URI'])[1];?>" class="saleId" style="cursor:pointer;">
-					<td><?php echo date('d-m-Y',strtotime($order['entry_date'])); ?></td>
-					<td><?php if($order['product'] == 1) echo 'ACC SURAKSHA';if($order['product'] == 6) echo 'CONCRETE+'?></td>
-					<td><?php echo $order['qty']; ?></td>
-					<td><?php echo $order['customer_name'].'<br/><font>'.$order['customer_phone'].'</font>'; ?></td>
-					<td><?php echo $order['address1']; ?></td>
-					<td><?php echo $order['remarks']; ?></td>
-					<td><?php echo $order['bill_no']; ?></td>
-				</tr>																																		<?php				
+			if(isset($orderList))
+			{
+				foreach($orderList as $order) 
+				{																																				?>	
+					<tr>
+						<td><?php echo date('d-m-Y',strtotime($order['entry_date'])); ?></td>
+						<td><?php if($order['product'] == 1) echo 'ACC SURAKSHA';if($order['product'] == 6) echo 'CONCRETE+'?></td>
+						<td><?php echo $order['qty']; ?></td>
+						<td><?php echo $order['customer_name'].'<br/><font>'.$order['customer_phone'].'</font>'; ?></td>
+						<td><?php echo $order['address1']; ?></td>
+						<td><?php echo $order['remarks']; ?></td>
+						<td><?php echo $order['bill_no']; ?></td>
+					</tr>																																		<?php				
+				}																																								
 			}																																				?>
 		</tbody>	
 	</table>
@@ -104,7 +110,7 @@ if (! empty($_SESSION["userId"]))
 			<div class="modal-body">
 				<br/>
 				<p id="insertError" style="color:red;"></p>
-				<form name="newSaleForm" id="newSaleForm" method="post" action="insert.php">
+				<form name="newSaleForm" id="newSaleForm" method="post" action="../insert.php">
 					<div class="col-sm-6 col-md-5 offset-1">
 						<div class="input-group mb-3">
 							<span class="input-group-text col-md-5 col-xs-3"><i class="far fa-calendar-alt"></i>&nbsp;Date</span>

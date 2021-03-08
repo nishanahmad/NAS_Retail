@@ -1,11 +1,12 @@
 <html>
 <head>
 <title>User Login</title>
-<link href="./view/css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
     <div>
-        <form action="login-action.php" method="post" id="frmLogin" onSubmit="return validate();">
+        <form action="../login-action.php" method="post" id="frmLogin" onSubmit="return validate();">
             <div class="demo-table">
 
                 <div class="form-head">Login</div>
