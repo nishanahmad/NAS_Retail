@@ -1,2 +1,2 @@
 <?php
-echo md5('darussalam123.');
+echo md5('general123');
