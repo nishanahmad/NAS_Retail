@@ -61,12 +61,10 @@ if (! empty($_SESSION["userId"]))
 </head>
 <body>
     <div>
-        <div class="dashboard">
-			<div id="snackbar"><i class="fa fa-bolt"></i>&nbsp;&nbsp;Order sent successfully !!!</div>
-            <div class="member-dashboard"><a href="#" class="btn btn-sm" role="button" style="background-color:#54698D;color:white;float:right;margin-right:3%;" data-toggle="modal" data-target="#saleModal"><i class="fa fa-bolt"></i> New Sale</a><br>
-                Click to <a href="../logout.php" class="logout-button">Logout</a>
-            </div>
-        </div>
+		<br/><br/>
+		<div id="snackbar"><i class="fa fa-bolt"></i>&nbsp;&nbsp;Order sent successfully !!!</div>
+		<a href="#" class="btn btn-sm" role="button" style="background-color:#54698D;color:white;margin-left:45%" data-toggle="modal" data-target="#saleModal"><i class="fa fa-bolt"></i> New Order</a><br>
+		<br/><br/>
     </div>
 	<table class="maintable table table-hover table-bordered" style="width:95%;margin-left:2%;">
 		<thead>

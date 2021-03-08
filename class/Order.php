@@ -20,7 +20,7 @@ class Order
     function getOrders($memberId)
     {
 		$today = date('Y-m-d');
-        $query = "select * FROM nas_sale WHERE ar_id = ? AND ar_direct = 1 AND entry_date >= '$today'";
+        $query = "select * FROM nas_sale WHERE ar_id = ? AND direct_order = 1 AND entry_date >= '$today'";
         $paramType = "i";
         $paramArray = array($memberId);
         $memberResult = $this->ds->select($query, $paramType, $paramArray);
@@ -46,10 +46,10 @@ class Order
 
     function insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$remarks,$godown,$entered_by,$entered_on)
     {
-		$ar_direct = 1;
-        $query = "INSERT INTO nas_sale (entry_date,product,qty,ar_id,customer_name,customer_phone,address1,remarks,ar_direct,godown,entered_by,entered_on) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		$direct_order = 1;
+        $query = "INSERT INTO nas_sale (entry_date,product,qty,ar_id,customer_name,customer_phone,address1,remarks,direct_order,godown,entered_by,entered_on) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         $paramType = "siiissssiiss";
-        $paramArray = array($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$remarks,$ar_direct,$godown,$entered_by,$entered_on);
+        $paramArray = array($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$remarks,$direct_order,$godown,$entered_by,$entered_on);
         $result = $this->ds->insert($query, $paramType, $paramArray);
         
         return $result;
