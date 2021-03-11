@@ -1,37 +1,11 @@
 <?php
-class DBController {
-	private $host = "localhost";
-	private $user = "nishan";
-	private $password = "darussalam123.";
-	private $database = "nas";
-	private $conn;
-	
-	function __construct() {
-		$this->conn = $this->connectDB();
-	}
-	
-	function connectDB() {
-		$conn = mysqli_connect($this->host,$this->user,$this->password,$this->database);
-		return $conn;
-	}
-	
-	function runQuery($query) {
-		$result = mysqli_query($this->conn,$query);
-		while($row=mysqli_fetch_assoc($result)) {
-			$resultset[] = $row;
-		}		
-		if(!empty($resultset))
-			return $resultset;
-	}
-	
-	function numRows($query) {
-		$result  = mysqli_query($this->conn,$query);
-		$rowcount = mysqli_num_rows($result);
-		return $rowcount;	
-	}
-}
+namespace Phppot;
 
-$db_handle = new DBController();
+use \Phppot\NASConnect;
+
+require_once "NASConnect.php";
+$db_handle = new NASConnect();
+
 if(!empty($_POST["keyword"])) 
 {
 	$query ="SELECT DISTINCT customer_phone FROM nas_sale WHERE customer_phone like '" . $_POST["keyword"] . "%' ORDER BY customer_phone LIMIT 0,6";
