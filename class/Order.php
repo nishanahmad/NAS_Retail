@@ -44,9 +44,10 @@ class Order
         return $godowns;
     }
 
-    function insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$remarks,$godown,$entered_by,$entered_on)
+    function insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$pin,$remarks,$godown,$entered_by,$entered_on)
     {
 		$direct_order = 1;
+		$address1 = $address1.' - PIN : '.$pin;
         $query = "INSERT INTO nas_sale (entry_date,product,qty,ar_id,customer_name,customer_phone,address1,remarks,direct_order,godown,entered_by,entered_on) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
         $paramType = "siiissssiiss";
         $paramArray = array($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$remarks,$direct_order,$godown,$entered_by,$entered_on);

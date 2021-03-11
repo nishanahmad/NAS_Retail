@@ -25,12 +25,13 @@ if (! empty($_SESSION["userId"]))
 	$customer_name = $_POST['customerName'];
 	$customer_phone = $_POST['customerPhone'];
 	$address1 = $_POST['address1'];
+	$pin = $_POST['pin'];
 	$remarks = $_POST['remarks'];
 	$godown = $_POST['godown'];
 	$entered_by = $memberResult[0]["user_name"];
 	$entered_on = date('Y-m-d H:i:s');	
 		
-	$order->insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$remarks,$godown,$entered_by,$entered_on);
+	$order->insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$pin,$remarks,$godown,$entered_by,$entered_on);
 	
 	if($order > 0)	
 		header("Location: index.php?success");
