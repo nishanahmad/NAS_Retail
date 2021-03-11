@@ -13,6 +13,7 @@ if (! empty($_POST["login"])) {
     if (! $isLoggedIn) {
         $_SESSION["errorMessage"] = "Invalid Credentials";
     }
-    header("Location: index.php");
+	echo('valid cred');
+    //header("Location: index.php");
     exit();
 }
