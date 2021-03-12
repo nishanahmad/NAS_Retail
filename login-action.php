@@ -11,10 +11,11 @@ if (! empty($_POST["login"])) {
     $member = new Member();
     $isLoggedIn = $member->processLogin($username, $password);
     if (! $isLoggedIn)
-        $_SESSION["errorMessage"] = "Invalid Credentials";
+		$_SESSION["errorMessage"] = "Invalid Credentials";
 	else
-		echo('valid cred');
+		$_SESSION["errorMessage"] = null;
     
-	//header("Location: index.php");
+	//var_dump($_SESSION["errorMessage"]);
+	header("Location: index.php");
     exit();
 }
