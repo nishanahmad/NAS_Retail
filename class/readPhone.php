@@ -6,9 +6,12 @@ use \Phppot\NASConnect;
 require_once "NASConnect.php";
 $db_handle = new NASConnect();
 
+session_start();
+$arId = $_SESSION["userId"];
+
 if(!empty($_POST["keyword"])) 
 {
-	$query ="SELECT DISTINCT customer_phone FROM nas_sale WHERE customer_phone like '" . $_POST["keyword"] . "%' ORDER BY customer_phone LIMIT 0,6";
+	$query ="SELECT DISTINCT customer_phone FROM nas_sale WHERE ar_id=$arId AND customer_phone like '" . $_POST["keyword"] . "%' ORDER BY customer_phone LIMIT 0,6";
 	$result = $db_handle->runQuery($query);
 	if(!empty($result)) 
 	{																															?>
