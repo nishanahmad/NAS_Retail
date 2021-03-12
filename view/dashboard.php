@@ -89,15 +89,18 @@ if (! empty($_SESSION["userId"]))
 							<td><?php echo $order['customer_name'].'<br/><font>'.$order['customer_phone'].'</font>'; ?></td>
 							<td><?php echo $order['address1']; ?></td>
 							<td><?php echo $order['remarks']; ?></td>
-							<td><?php echo statusCheck($order['bill_no']); ?><br/>
-								<form name="deleteForm" id="deleteForm" method="post" action="../delete.php">
-								<input hidden name="orderId" value="<?php echo $order['sales_id'];?>"/><br/>
-								<button id="deleteBtn" class="btn" type="submit" onclick="return confirm('Are you sure you want to cancel this order?');" style="width:80px;font-size:12px;background-color:#54698D;color:white;">Cancel</button>
-								</form>
+							<td><?php echo statusCheck($order['bill_no']); ?><br/>																						<?php 
+								if(statusCheck($order['bill_no']) == 'Pending')
+								{																																		?>
+									<form name="deleteForm" id="deleteForm" method="post" action="../delete.php">
+										<input hidden name="orderId" value="<?php echo $order['sales_id'];?>"/><br/>
+										<button id="deleteBtn" class="btn" type="submit" onclick="return confirm('Are you sure you want to cancel this order?');" style="width:80px;font-size:12px;background-color:#54698D;color:white;">Cancel</button>
+									</form>																																<?php
+								}																																		?>
 							</td>
-						</tr>																																		<?php				
+						</tr>																																			<?php				
 					}																																								
-				}																																				?>
+				}																																						?>
 			</tbody>	
 		</table>
 		<br/><br/><br/>
