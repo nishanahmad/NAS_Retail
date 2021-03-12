@@ -38,19 +38,33 @@ class Order
 	
     function getGodowns()
     {
+		$godownMap = array();
         $query = "select * FROM godowns WHERE name != 'KAKKAD' AND name != 'MUTTOM' AND name != 'VARAM'";
         $godowns = $this->ds->select($query);
+		foreach($godowns as $godown)
+			$godownMap[$godown['id']] = $godown['name'];
         
-        return $godowns;
+        return $godownMap;
     }
+	
+    function getTrucks()
+    {
+		$truckMap = array();
+        $query = "select * FROM truck_details";
+        $trucks = $this->ds->select($query);
+		foreach($trucks as $truck)
+			$truckMap[$truck['id']] = $truck['number'];
+        
+        return $truckMap;
+    }	
 
-    function insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$pin,$remarks,$godown,$entered_by,$entered_on)
+    function insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$pin,$truck,$remarks,$godown,$entered_by,$entered_on)
     {
 		$direct_order = 1;
 		$address1 = $address1.' - PIN : '.$pin;
-        $query = "INSERT INTO nas_sale (entry_date,product,qty,ar_id,customer_name,customer_phone,address1,remarks,direct_order,godown,entered_by,entered_on) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-        $paramType = "siiissssiiss";
-        $paramArray = array($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$remarks,$direct_order,$godown,$entered_by,$entered_on);
+        $query = "INSERT INTO nas_sale (entry_date,product,qty,ar_id,customer_name,customer_phone,address1,truck,remarks,direct_order,godown,entered_by,entered_on) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $paramType = "siiisssisiiss";
+        $paramArray = array($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$truck,$remarks,$direct_order,$godown,$entered_by,$entered_on);
         $result = $this->ds->insert($query, $paramType, $paramArray);
         
         return $result;

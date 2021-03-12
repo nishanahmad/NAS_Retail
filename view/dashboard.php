@@ -14,6 +14,7 @@ if (! empty($_SESSION["userId"]))
 	
 	$products = $order->getProducts();
 	$godowns = $order->getGodowns();
+	$trucks = $order->getTrucks();
 
 	function statusCheck($bill)
 	{
@@ -30,6 +31,8 @@ if (! empty($_SESSION["userId"]))
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css">
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet"/>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>		
 	<style>
 	#snackbar {
 	  visibility: hidden;
@@ -69,11 +72,11 @@ if (! empty($_SESSION["userId"]))
 			<thead>
 				<tr class="table-success">
 					<th style="min-width:110px;"><i class="far fa-calendar-alt"></i> Date</th>
-					<th style="width:70px;"><i class="fa fa-shield"></i> PRO</th>
-					<th style="width:70px;"><i class="fab fa-buffer"></i> QTY</th>
-					<th style="width:180px;"><i class="far fa-user"></i> CUSTOMER</th>
-					<th><i class="fas fa-map-marker-alt"></i> ADDRESS</th>
-					<th><i class="far fa-comment-dots"></i> REMARKS</th>
+					<th style="width:70px;"><i class="fa fa-shield"></i> Product</th>
+					<th style="width:180px;"><i class="far fa-user"></i> Customer</th>
+					<th><i class="fas fa-map-marker-alt"></i> Address</th>
+					<th><i class="far fa-comment-dots"></i>Remarks</th>
+					<th><i class="fa fa-truck-moving"></i>Truck & Godown</th>
 					<th style="width:120px;"><i class="far fa-file-alt"></i> Status</th>
 				</tr>	
 			</thead>
@@ -84,11 +87,14 @@ if (! empty($_SESSION["userId"]))
 					{																																				?>	
 						<tr>
 							<td><?php echo date('d-m-Y',strtotime($order['entry_date'])); ?></td>
-							<td><?php if($order['product'] == 1) echo 'ACC SURAKSHA';if($order['product'] == 6) echo 'CONCRETE+'?></td>
-							<td><?php echo $order['qty']; ?></td>
+							<td><?php if($order['product'] == 1) echo 'ACC SURAKSHA';if($order['product'] == 6) echo 'CONCRETE+'?></br/>
+									<?php echo $order['qty'].' bags'; ?>
+							</td>
 							<td><?php echo $order['customer_name'].'<br/><font>'.$order['customer_phone'].'</font>'; ?></td>
 							<td><?php echo $order['address1']; ?></td>
 							<td><?php echo $order['remarks']; ?></td>
+							<td><?php if($order['truck'] > 0) echo $trucks[$order['truck']].'<br/>';
+									  if($order['godown'] > 0) echo $godowns[$order['godown']]; ?></td>
 							<td><?php echo statusCheck($order['bill_no']); ?><br/>																						<?php 
 								if(statusCheck($order['bill_no']) == 'Pending')
 								{																																		?>
@@ -167,13 +173,25 @@ if (! empty($_SESSION["userId"]))
 								<span class="input-group-text" style="width:40%"><i class="fas fa-warehouse"></i></i>&nbsp;Godown</span>
 								<select name="godown" id="godown" class="form-control" style="width:60%">
 									<option value = "">---Select---</option>																						<?php
-									foreach($godowns as $godown) 
+									foreach($godowns as $id => $name) 
 									{																							?>
-										<option value="<?php echo $godown['id'];?>"><?php echo $godown['name'];?></option>			<?php	
+										<option value="<?php echo $id;?>"><?php echo $name;?></option>							<?php	
 									}																							?>
 								</select>									
 							</div>
 						</div>
+						<div class="col-sm-6 col-md-5 offset-1">
+							<div class="input-group mb-3">
+								<span class="input-group-text" style="width:40%"><i class="fa fa-truck-moving"></i>&nbsp;Truck</span>
+								<select name="truck" id="truck" class="form-control" style="width:60%">
+									<option value = "">---Select---</option>																						<?php
+									foreach($trucks as $id => $number) 
+									{																							?>
+										<option value="<?php echo $id;?>"><?php echo $number;?></option>						<?php	
+									}																							?>
+								</select>									
+							</div>
+						</div>						
 						<div class="col-sm-6 col-md-6 offset-1">
 							<div class="input-group mb-3">
 								<span class="input-group-text col-md-4"></i>&nbsp;Remarks</span>
@@ -200,6 +218,8 @@ if (! empty($_SESSION["userId"]))
 	 $( document ).ready(function() {
 		var pickeropts = { dateFormat:"dd-mm-yy"}; 
 		$( "#date" ).datepicker(pickeropts);	
+		
+		$("#truck").select2();		
 
 		if(window.location.href.includes('success')){
 			var x = document.getElementById("snackbar");
