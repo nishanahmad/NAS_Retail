@@ -54,5 +54,15 @@ class Order
         $result = $this->ds->insert($query, $paramType, $paramArray);
         
         return $result;
+    }
+
+    function deleteOrder($id)
+    {
+        $query = "DELETE FROM nas_sale WHERE sales_id = ?";
+        $paramType = "i";
+        $paramArray = array($id);
+        $result = $this->ds->deleteCommand($query, $paramType, $paramArray);
+        
+        return $result;
     }	
 }
