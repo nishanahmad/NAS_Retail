@@ -31,8 +31,15 @@ if (! empty($_SESSION["userId"]))
 	$godown = $_POST['godown'];
 	$entered_by = $memberResult[0]["user_name"];
 	$entered_on = date('Y-m-d H:i:s');	
-		
-	$order->insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$pin,$truck,$remarks,$godown,$entered_by,$entered_on);
+	if(isset($_POST['ar_direct']))
+	{
+		$ar_direct = 1;
+		$customer_name = $_SESSION['userName'];
+	}
+	else	
+		$ar_direct = 0;	
+	
+	$order->insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$pin,$truck,$remarks,$godown,$entered_by,$entered_on,$ar_direct);
 	
 	if($order > 0)	
 		header("Location: index.php?success");

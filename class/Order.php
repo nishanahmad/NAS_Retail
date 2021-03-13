@@ -58,13 +58,14 @@ class Order
         return $truckMap;
     }	
 
-    function insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$pin,$truck,$remarks,$godown,$entered_by,$entered_on)
+    function insertOrder($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$pin,$truck,$remarks,$godown,$entered_by,$entered_on,$ar_direct)
     {
 		$direct_order = 1;
-		$address1 = $address1.' - PIN : '.$pin;
-        $query = "INSERT INTO nas_sale (entry_date,product,qty,ar_id,customer_name,customer_phone,address1,truck,remarks,direct_order,godown,entered_by,entered_on) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        $paramType = "siiisssisiiss";
-        $paramArray = array($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$truck,$remarks,$direct_order,$godown,$entered_by,$entered_on);
+		if(!empty($pin))
+			$address1 = $address1.' - PIN : '.$pin;
+        $query = "INSERT INTO nas_sale (entry_date,product,qty,ar_id,customer_name,customer_phone,address1,truck,remarks,direct_order,godown,entered_by,entered_on,ar_direct) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $paramType = "siiisssisiissi";
+        $paramArray = array($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$truck,$remarks,$direct_order,$godown,$entered_by,$entered_on,$ar_direct);
         $result = $this->ds->insert($query, $paramType, $paramArray);
         
         return $result;

@@ -135,32 +135,34 @@ if (! empty($_SESSION["userId"]))
 								</select>
 							</div>
 						</div>
-						<div class="col-sm-6 col-md-5 offset-1">
+						<div class="col-sm-6 col-md-6 offset-1">
 							<div class="input-group mb-3">
-								<span class="input-group-text col-md-5"><i class="fab fa-buffer"></i>&nbsp;Qty</span>
+								<span class="input-group-text col-md-4"><i class="fab fa-buffer"></i>&nbsp;Qty</span>
 								<input type="text" name="qty" id="qty" required class="form-control" pattern="[0-9]+" title="Input a valid number">
+								&nbsp;&nbsp;
+								<input class="form-check-input" type="checkbox" id="ar_direct" name="ar_direct">&nbsp;Shop Direct
 							</div>
 						</div>
-						<div class="col-sm-6 col-md-5 offset-1">
+						<div class="col-sm-6 col-md-5 offset-1 customerDetail">
 							<div class="input-group mb-3">
 								<span class="input-group-text" style="width:40%"><i class="fas fa-mobile-alt"></i>&nbsp;Phone</span>
 								<input type="text" name="customerPhone" id="phone" class="form-control" autocomplete="off">
 								<div id="suggesstion-box"></div>
 							</div>
 						</div>
-						<div class="col-sm-6 col-md-5 offset-1">
+						<div class="col-sm-6 col-md-5 offset-1 customerDetail">
 							<div class="input-group mb-3">
 								<span class="input-group-text" style="width:40%"><i class="far fa-user"></i></i>&nbsp;Customer</span>
 								<input type="text" name="customerName" id="customer" class="form-control">
 							</div>
 						</div>					
-						<div class="col-sm-6 col-md-6 offset-1">
+						<div class="col-sm-6 col-md-6 offset-1 customerDetail">
 							<div class="input-group mb-3">
 								<span class="input-group-text col-md-4"><i class="fas fa-map-marker-alt"></i>&nbsp;Address</span>
 								<textarea name="address1" id="address1" class="form-control" rows="3"></textarea>
 							</div>
 						</div>
-						<div class="col-sm-6 col-md-5 offset-1">
+						<div class="col-sm-6 col-md-5 offset-1 customerDetail">
 							<div class="input-group mb-3">
 								<span class="input-group-text" style="width:40%"><i class="fas fa-map-marker-alt"></i></i>&nbsp;PIN</span>
 								<input type="text" name="pin" id="pin" class="form-control">
@@ -237,6 +239,13 @@ if (! empty($_SESSION["userId"]))
 					$("#phone").css("background","#FFF");
 				}
 			});
+		});		
+		
+		$("#ar_direct").click(function(){
+			if($(this).is(":checked")) 
+				$(".customerDetail").hide();
+			else
+				$(".customerDetail").show();
 		});		
 	});
 
