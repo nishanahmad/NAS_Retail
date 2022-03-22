@@ -18,7 +18,7 @@ if (! empty($_SESSION["userId"]))
 
 	function statusCheck($bill)
 	{
-		if( fnmatch("BB*",$bill) || fnmatch("BC*",$bill) || fnmatch("GB*",$bill) || fnmatch("GC*",$bill) || fnmatch("PB*",$bill) || fnmatch("PC*",$bill))
+		if( fnmatch("B*",$bill) || fnmatch("C*",$bill) || fnmatch("G*",$bill) || fnmatch("P*",$bill))
 			return 'Billed';
 		else	
 			return 'Pending';
