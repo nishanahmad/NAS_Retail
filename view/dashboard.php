@@ -75,6 +75,7 @@ if (! empty($_SESSION["userId"]))
 					<th><i class="fas fa-map-marker-alt"></i> Address</th>
 					<th><i class="far fa-comment-dots"></i>Remarks</th>
 					<th><i class="fa fa-truck-moving"></i>Truck & Godown</th>
+					<th></i>Driver</th>
 					<th style="width:120px;"><i class="far fa-file-alt"></i> Status</th>
 				</tr>	
 			</thead>
@@ -93,6 +94,7 @@ if (! empty($_SESSION["userId"]))
 							<td><?php echo $order['remarks']; ?></td>
 							<td><?php if($order['truck'] > 0) echo $trucks[$order['truck']].'<br/>';
 									  if($order['godown'] > 0) echo $godowns[$order['godown']]; ?></td>
+							<td><?php echo $order['driver_name'].'<br/>'.$order['driver_phone'];?></td>									  
 							<td><?php echo statusCheck($order['bill_no']); ?><br/>																						<?php 
 								if(statusCheck($order['bill_no']) == 'Pending')
 								{																																		?>

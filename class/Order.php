@@ -20,7 +20,7 @@ class Order
     function getOrders($memberId)
     {
 		$today = date('Y-m-d');
-        $query = "select * FROM nas_sale WHERE ar_id = ? AND direct_order = 1 AND entry_date >= '$today'";
+        $query = "select * FROM nas_sale WHERE ar_id = ? AND entry_date >= '$today' ORDER BY direct_order DESC";
         $paramType = "i";
         $paramArray = array($memberId);
         $memberResult = $this->ds->select($query, $paramType, $paramArray);
@@ -68,7 +68,7 @@ class Order
         $paramArray = array($entry_date,$product,$qty,$ar_id,$customer_name,$customer_phone,$address1,$truck,$remarks,$direct_order,$godown,$entered_by,$entered_on,$ar_direct);
         $result = $this->ds->insert($query, $paramType, $paramArray);
         
-        return $result;
+		return $result;
     }
 
     function deleteOrder($id)
