@@ -50,7 +50,7 @@ class Order
     function getTrucks()
     {
 		$truckMap = array();
-        $query = "select * FROM truck_details WHERE number='LORRY' OR number='TEMPO' OR number='NISSAN' OR number='MINI EICHER' OR number='EICHER'";
+        $query = "select * FROM truck_details"// WHERE number='LORRY' OR number='TEMPO' OR number='NISSAN' OR number='MINI EICHER' OR number='EICHER'";
         $trucks = $this->ds->select($query);
 		foreach($trucks as $truck)
 			$truckMap[$truck['id']] = $truck['number'];
