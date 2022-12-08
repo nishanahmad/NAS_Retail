@@ -1,2 +1,2 @@
 <?php
-echo md5('nas@86862!');
+echo md5('admin123');
