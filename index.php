@@ -2,7 +2,16 @@
 session_start();
 if(!empty($_SESSION["userId"])) 
 {
-	header("Location:view/dashboard.php");
+	if(isset($_GET['error']))
+	{
+		$error = $_GET['error'];
+		header("Location:view/dashboard.php?error=$error");
+	}
+	else
+	{
+		header("Location:view/dashboard.php?");
+	}
+		
 } 
 else
 {

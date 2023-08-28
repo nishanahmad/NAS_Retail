@@ -21,6 +21,6 @@ if (! empty($_SESSION["userId"]))
 	if($order)	
 		header("Location: index.php?success");
 	else
-		echo 'ERROR';
+		header("Location: index.php?error=bill");
 }
 ?>
