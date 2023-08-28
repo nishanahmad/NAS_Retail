@@ -73,10 +73,25 @@ class Order
 
     function deleteOrder($id)
     {
-        $query = "DELETE FROM nas_sale WHERE sales_id = ?";
+        $query = "select bill_no FROM nas_sale WHERE sales_id = ?";
         $paramType = "i";
         $paramArray = array($id);
-        $result = $this->ds->deleteCommand($query, $paramType, $paramArray);
+        $sales = $this->ds->select($query, $paramType, $paramArray);
+		foreach($sales as $sale)
+			$bill = $sale['bill_no'];
+		
+		if( fnmatch("B*",$bill) || fnmatch("C*",$bill) || fnmatch("D*",$bill) || fnmatch("GB*",$bill) || fnmatch("GC*",$bill) || fnmatch("PB*",$bill) || fnmatch("PC*",$bill) || fnmatch("TRF*",$bill))		
+		{
+			$result = false;	
+		}
+		else
+		{
+			$query = "DELETE FROM nas_sale WHERE sales_id = ?";
+			$paramType = "i";
+			$paramArray = array($id);
+			$result = $this->ds->deleteCommand($query, $paramType, $paramArray);			
+		}
+
         
         return $result;
     }	
