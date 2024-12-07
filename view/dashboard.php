@@ -134,6 +134,8 @@ if (! empty($_SESSION["userId"]))
 								<select name="product" id="product" required class="form-control">
 									<option value="1">ACC SURAKSHA</option>
 									<option value="6">CONCRETE+</option>
+									<option value="10">ULTRA</option>
+									<option value="11">ULTRA SUPER</option>
 								</select>
 							</div>
 						</div>
