@@ -1,2 +1,2 @@
 <?php
-echo md5('chal123#');
+echo md5('345mat');

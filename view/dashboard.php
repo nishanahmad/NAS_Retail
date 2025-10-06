@@ -16,6 +16,13 @@ if (! empty($_SESSION["userId"]))
 	$godowns = $order->getGodowns();
 	$trucks = $order->getTrucks();
 
+	$productNameMap = array();
+	
+	foreach($products as $product)
+	{
+		$productNameMap[$product['id']] = $product['name'];
+	}
+	
 	function statusCheck($bill)
 	{
 		if( fnmatch("B*",$bill) || fnmatch("C*",$bill) || fnmatch("D*",$bill) || fnmatch("GB*",$bill) || fnmatch("GC*",$bill) || fnmatch("PB*",$bill) || fnmatch("PC*",$bill) || fnmatch("TRF*",$bill))
@@ -86,7 +93,7 @@ if (! empty($_SESSION["userId"]))
 					{																																				?>	
 						<tr>
 							<td><?php echo date('d-m-Y',strtotime($order['entry_date'])); ?></td>
-							<td><?php if($order['product'] == 1) echo 'ACC SURAKSHA';if($order['product'] == 6) echo 'CONCRETE+'?></br/>
+							<td><?php echo $productNameMap[$order['product']]?></br/>
 									<?php echo $order['qty'].' bags'; ?>
 							</td>
 							<td><?php echo $order['customer_name'].'<br/><font>'.$order['customer_phone'].'</font>'; ?></td>
@@ -136,6 +143,7 @@ if (! empty($_SESSION["userId"]))
 									<option value="6">CONCRETE+</option>
 									<option value="10">ULTRA</option>
 									<option value="11">ULTRA SUPER</option>
+									<option value="28">ULTRA HDPE</option>
 								</select>
 							</div>
 						</div>
