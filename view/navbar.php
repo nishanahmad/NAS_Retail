@@ -53,7 +53,7 @@ body{
 }
 </style>
 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark sticky-top top-nav">
-  <a class="navbar-brand main-brand" href="#"><img src="images/logo.svg" height="50" width="160"></img></a>
+  <a class="navbar-brand main-brand" href="#"><img src="https://www.freelogovectors.net/wp-content/uploads/2020/09/ultratech-cement-logo.png" height="80" width="120"></img></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	<span class="navbar-toggler-icon"></span>
   </button>
